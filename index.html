@@ -92,7 +92,45 @@ body {
 		</style>
 		<link id="-gd-engine-icon" rel="icon" type="image/png" href="index.icon.png" />
 <link rel="apple-touch-icon" href="index.apple-touch-icon.png"/>
+<style>
+    html, body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background-color: black;
+    }
+    
+    #canvas {
+        width: 100vw;
+        height: 100vh;
+        display: block;
+        object-fit: contain;  /* This maintains aspect ratio */
+    }
+</style>
 
+<script>
+    window.addEventListener('load', function() {
+        // Force canvas to viewport size
+        const canvas = document.getElementById('canvas');
+        if (canvas) {
+            // Set canvas size to match CSS size
+            const resizeObserver = new ResizeObserver(entries => {
+                for (let entry of entries) {
+                    const width = entry.contentRect.width;
+                    const height = entry.contentRect.height;
+                    
+                    // This helps Godot understand the actual display size
+                    canvas.style.width = width + 'px';
+                    canvas.style.height = height + 'px';
+                }
+            });
+            
+            resizeObserver.observe(document.body);
+        }
+    });
+</script>
 	</head>
 	<body>
 		<canvas id="canvas">
@@ -111,7 +149,7 @@ body {
 
 		<script src="index.js"></script>
 		<script>
-const GODOT_CONFIG = {"args":[],"canvasResizePolicy":2,"emscriptenPoolSize":8,"ensureCrossOriginIsolationHeaders":true,"executable":"index","experimentalVK":false,"fileSizes":{"index.pck":453052,"index.wasm":35740641},"focusCanvas":true,"gdextensionLibs":[],"godotPoolSize":4};
+const GODOT_CONFIG = {"args":[],"canvasResizePolicy":2,"emscriptenPoolSize":8,"ensureCrossOriginIsolationHeaders":true,"executable":"index","experimentalVK":false,"fileSizes":{"index.pck":453100,"index.wasm":37686550},"focusCanvas":true,"gdextensionLibs":[],"godotPoolSize":4};
 const GODOT_THREADS_ENABLED = false;
 const engine = new Engine(GODOT_CONFIG);
 
